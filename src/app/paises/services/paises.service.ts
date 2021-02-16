@@ -5,5 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class PaisesService {
 
+  private _continentes: string[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+
+  get continentes():string[] {
+    return [ ...this._continentes ]
+  }
+
   constructor() { }
 }
