@@ -15,7 +15,7 @@
   </div>
 
     <!-- Combo de paises -->
-  <div class="row mb-3">
+  <div class="row mb-3" *ngIf="paises.length !== 0">
     <div class="col">
       <label for="etiqueta" class="form-label">Paises:</label>
       <select class="form-control" formControlName="paises">
@@ -26,13 +26,21 @@
   </div>
 
     <!-- Combo de fronteras -->
-  <div class="row mb-3">
+  <div class="row mb-3" *ngIf="fronteras.length !== 0">
     <div class="col">
       <label for="etiqueta" class="form-label">Fronteras:</label>
       <select class="form-control" formControlName="fronteras">
         <option value=""> -- Seleccione la frontera -- </option>
         <option *ngFor="let item of fronteras; let i=index" [value]="item | lowercase"> {{ item }}</option>
       </select>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="cargando">
+    <div class="col">
+      <div class="alert alert-info">
+        Cargando...
+      </div>
     </div>
   </div>
 

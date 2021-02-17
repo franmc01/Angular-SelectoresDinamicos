@@ -22,12 +22,19 @@ export class SelectorPageComponent implements OnInit {
   paises: Pais[] = [];
   fronteras: string[] = [];
 
+
+  // UI
+  cargando: boolean = false;
+
   constructor(private fb: FormBuilder,
     private paisesService: PaisesService) { }
 
   ngOnInit(): void {
 
     this.continentes = this.paisesService.continentes;
+    // this.formularioPais.get('paises')?.disable();
+    // this.formularioPais.get('fronteras')?.disable();
+
 
     //Cuando cambio el primer combo
     // this.formularioPais.get('continente')?.valueChanges.subscribe(cont => {
@@ -40,11 +47,16 @@ export class SelectorPageComponent implements OnInit {
       .pipe(
         tap((_) => {
           this.formularioPais.get('paises')?.reset('');
+          this.cargando = true;
         }),
         switchMap(cont => this.paisesService.obtenerPaises(cont))
       )
       .subscribe(paises => {
+        // if(paises !== null){
+        //   this.formularioPais.get('paises')?.enable();
+        // }
         this.paises = paises;
+        this.cargando = false;
       });
 
 
@@ -53,10 +65,17 @@ export class SelectorPageComponent implements OnInit {
         tap((_) => {
           this.fronteras= [];
           this.formularioPais.get('fronteras')?.reset('');
+          this.cargando = true;
         }),
         switchMap(codigo => this.paisesService.obtenerPaisesPorCode(codigo))
       ).subscribe(pais => {
+        console.log(pais);
+        // if(pais?.borders.length !== 0){
+        //   this.formularioPais.get('fronteras')?.enable();
+        // }
         this.fronteras = pais?.borders || [];
+        this.cargando = false;
+                // }
       })
 
 
