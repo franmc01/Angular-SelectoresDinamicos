@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "Selectores"
+  "defaultProject": "Selectores",
+  "cli": {
+    "packageManager": "yarn"
+  }
 }
