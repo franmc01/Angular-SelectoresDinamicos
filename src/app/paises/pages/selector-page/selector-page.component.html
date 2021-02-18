@@ -31,7 +31,7 @@
       <label for="etiqueta" class="form-label">Fronteras:</label>
       <select class="form-control" formControlName="fronteras">
         <option value=""> -- Seleccione la frontera -- </option>
-        <option *ngFor="let item of fronteras; let i=index" [value]="item | lowercase"> {{ item }}</option>
+        <option *ngFor="let item of fronteras; let i=index" [value]="item.alpha3Code | lowercase"> {{ item.name }}</option>
       </select>
     </div>
   </div>

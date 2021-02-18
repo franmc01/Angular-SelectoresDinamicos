@@ -20,7 +20,8 @@ export class SelectorPageComponent implements OnInit {
   //Llenar selectores
   continentes: string[] = [];
   paises: Pais[] = [];
-  fronteras: string[] = [];
+  // fronteras: string[] = [];
+  fronteras: Pais[] = [];
 
 
   // UI
@@ -63,19 +64,18 @@ export class SelectorPageComponent implements OnInit {
     this.formularioPais.get('paises')?.valueChanges
       .pipe(
         tap((_) => {
-          this.fronteras= [];
+          this.fronteras = [];
           this.formularioPais.get('fronteras')?.reset('');
           this.cargando = true;
         }),
-        switchMap(codigo => this.paisesService.obtenerPaisesPorCode(codigo))
-      ).subscribe(pais => {
-        console.log(pais);
+        switchMap(codigo => this.paisesService.obtenerPaisesPorCode(codigo)),
+        switchMap(pais => this.paisesService.getPaisesPorCodigosFronteras(pais?.borders!))
+      ).subscribe(paisesM => {
         // if(pais?.borders.length !== 0){
         //   this.formularioPais.get('fronteras')?.enable();
         // }
-        this.fronteras = pais?.borders || [];
-        this.cargando = false;
-                // }
+          this.fronteras = paisesM;
+          this.cargando = false;
       })
 
 
